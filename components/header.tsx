@@ -4,7 +4,7 @@ import Image from "next/image"
 
 export const Header = () => {
     return (
-        <div className="w-full lg:fixed top-0 z-50">
+        <div className="w-full bg-white mb-24">
             <nav className="sm:gap-6 py-3 w-11/12 m-auto flex gap-3 items-center justify-between">
                 <div className="flex items-center gap-5">
                     <Link href="/" className="text-2xl font-extrabold transition-all duration-300 hover:text-purple-500">

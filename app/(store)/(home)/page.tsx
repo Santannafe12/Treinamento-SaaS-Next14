@@ -1,6 +1,6 @@
+import { MyComponent } from '@/components/carousel'
 import { Featured } from '@/components/featured'
-import { HeroSection } from '@/components/hero-section'
-import { NavigationTop } from '@/components/navigation-top'
+import { HorizontalCard } from '@/components/horizontal-card'
 import { OtherProducts } from '@/components/other-products'
 import { createProduct, getFeaturedProducts, getGeneralProducts } from '@/lib/actions'
 
@@ -10,14 +10,11 @@ export default async function Home() {
 
   return (
     <div>
-
-      {/* <HeroSection /> */}
-
-      <NavigationTop />
-
-      <Featured featured={featuredProducts} />
+      {/* <Featured featured={featuredProducts} /> */}
 
       <OtherProducts otherProducts={generalProducts} />
+      <MyComponent />
+      {/* <HorizontalCard /> */}
 
       {/* <div>
         <form action={createProduct} className='text-black'>

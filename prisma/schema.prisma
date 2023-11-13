@@ -11,15 +11,22 @@ datasource db {
 }
 
 model Product {
-    id        String   @id @default(cuid())
-    title     String   @unique
-    content   String
-    image     String?
-    price     Float?
-    featured  Boolean  @default(false)
-    createdAt DateTime @default(now()) @map(name: "created_at")
-    author    User?    @relation(fields: [authorId], references: [id])
-    authorId  String?
+    id         String     @id @default(cuid())
+    title      String     @unique
+    content    String
+    image      String?
+    price      Float?
+    featured   Boolean    @default(false)
+    createdAt  DateTime   @default(now()) @map(name: "created_at")
+    author     User?      @relation(fields: [authorId], references: [id])
+    authorId   String?
+    categories Category[] // New property for categories
+}
+
+model Category {
+    id       String    @id @default(cuid())
+    name     String    @unique
+    products Product[]
 }
 
 model User {

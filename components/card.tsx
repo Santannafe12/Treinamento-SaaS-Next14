@@ -4,33 +4,28 @@ import Link from "next/link"
 
 export const Card = ({ product }: CardProps) => {
     return (
-        <div>
-            {/* <Link href={"/"} className="max-w-max"> */}
-            <div className="w-96 bg-white rounded-xl text-black">
-                <div className="h-96">
-                    <Image
-                        src={"/apple.png"}
-                        alt={"Produto"}
-                        width={1920} height={1080}
-                        className="h-full w-full object-cover rounded-xl"
-                    />
-                </div>
-                <div className="w-11/12 m-auto py-6">
-                    <div className="mb-2 flex items-center justify-between font-extrabold text-lg">
-                        <h1>{product.title}</h1>
-                        <span>${product.price}</span>
+        <div className="bg-white max-w-xs rounded-xl overflow-hidden shadow-lg flex flex-col justify-between">
+            <div className="group">
+                <Link href={"/"}>
+                    <Image className="w-full aspect-square object-cover overflow-hidden" src="/fleece.jpg" alt="Sunset in the mountains" width={1200} height={1200} />
+                    <div className="px-4 py-2 flex justify-between">
+                        <h1 className="group-hover:underline">{product.title}</h1>
+                        <span className="text-lg">${product.price}</span>
                     </div>
-                    <p className="mb-4 opacity-60 text-sm text-justify">
-                        {product.content}
-                    </p>
-                    <div className="w-full m-auto flex justify-center">
-                        <button className="w-full text-sm font-semibold rounded-md p-2 bg-black/20 hover:scale-105 transition-all">
-                            ADD TO CART
-                        </button>
+                    <div className="px-4 pb-2 max-w-full line-clamp-3">
+                        <p className="opacity-60 text-sm text-justify line-clamp-3">
+                            {product.content}
+                        </p>
                     </div>
-                </div>
+                </Link>
             </div>
-            {/* </Link> */}
+            <div className="w-11/12 m-auto flex justify-center mt-4 mb-4">
+                <Link href={"/"} className="w-full">
+                    <button className="w-full text-sm font-semibold rounded-md p-2 bg-black/20 hover:scale-105 transition-all truncate">
+                        ADICIONAR AO CARRINHO
+                    </button>
+                </Link>
+            </div>
         </div>
     )
 }
