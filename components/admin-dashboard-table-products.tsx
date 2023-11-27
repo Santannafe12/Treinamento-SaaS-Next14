@@ -2,7 +2,7 @@ import { countAllProducts, fetchFilteredProducts, fetchProductPages, filterProdu
 import { ProductsProps } from "@/types/featured"
 import Link from "next/link"
 import AdminSearch from "./admin-search"
-import { AdminDeleteButton, AdminEditButton } from "./admin-buttons"
+import { AdminDeleteButton, AdminEditButton, AdminViewButton } from "./admin-buttons"
 import Pagination from "./pagination"
 
 export default async function AdminProductsDashboardTable({ query, currentPage }: ProductsProps) {
@@ -39,9 +39,6 @@ export default async function AdminProductsDashboardTable({ query, currentPage }
                                 Conteúdo
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Categorias
-                            </th>
-                            <th scope="col" className="px-6 py-3">
                                 Ações
                             </th>
                         </tr>
@@ -58,10 +55,8 @@ export default async function AdminProductsDashboardTable({ query, currentPage }
                                 <td className="px-6 py-4 max-w-xs">
                                     {item.content}
                                 </td>
-                                <td className="px-6 py-4">
-                                    {item.price}
-                                </td>
                                 <td className="px-6 py-4 flex items-center gap-4">
+                                    <AdminViewButton id={item.id} />
                                     <AdminEditButton id={item.id} />
                                     <AdminDeleteButton id={item.id} />
                                 </td>

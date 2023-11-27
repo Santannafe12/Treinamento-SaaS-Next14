@@ -20,7 +20,7 @@ export const Card = ({ product }: ProductArray) => {
                 <Image
                     className="aspect-square object-cover overflow-hidden"
                     loading="lazy"
-                    src="/fleece.jpg"
+                    src={product.image}
                     alt="Sunset in the mountains"
                     width={1000}
                     height={1200}

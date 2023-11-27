@@ -1,5 +1,5 @@
 import { AdminDashboardHeader } from "@/components/admin-dashboard-header";
-import EditProduct from "@/components/admin-edit-product";
+import ViewProduct from "@/components/admin-view-product";
 import { getCategories, getProductById } from "@/lib/product/actions";
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -12,8 +12,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     return (
         <div className="space-y-10">
-            <AdminDashboardHeader title="Edite um produto" description="Insira as informações" />
-            <EditProduct product={product} categories={categories} />
+            <AdminDashboardHeader title="Visualizando um produto" description={product?.title} />
+            <ViewProduct product={product} categories={categories} />
         </div>
     )
 }

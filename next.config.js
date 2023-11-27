@@ -8,8 +8,16 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
+                hostname: 'asset.cloudinary.com',
+            },
+            {
+                protocol: 'https',
                 hostname: 'res.cloudinary.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'console.cloudinary.com',
+            }
         ],
     }
 }

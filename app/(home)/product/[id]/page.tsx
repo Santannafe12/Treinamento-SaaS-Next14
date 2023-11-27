@@ -1,18 +1,14 @@
-'use client'
+import IndividualProduct from "@/components/individual-product"
+import { getProductById } from "@/lib/product/actions"
 
-import { Carousel } from "@/components/carousel";
-import IndividualProduct from "@/components/individual-product";
-import { useParams } from "next/navigation";
+export default async function Page({ params }: { params: { id: string } }) {
+    const id = params.id
 
-export default function Product() {
-    // const similar = await GET({ limit: 4, page: 1, category: "fleece" });
-    const params = useParams()
-    console.log(params.id)
+    const product = await getProductById(id)
 
     return (
         <div className="w-full space-y-32">
-            {/* <IndividualProduct params={params.id} /> */}
-            {/* <Carousel title="ITENS SIMILARES" otherProducts={similar}/> */}
+            <IndividualProduct product={product} />
         </div>
     )
 }

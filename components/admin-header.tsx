@@ -12,10 +12,6 @@ const NAV_LINKS = [
         label: "Gerenciar Produtos",
         href: "/admin/products",
     },
-    {
-        label: "Gerenciar Usuários",
-        href: "/admin/users",
-    },
 ]
 
 export const AdminHeader = () => {

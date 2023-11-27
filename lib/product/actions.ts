@@ -6,55 +6,72 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ITEMS_PER_PAGE } from "../utils";
 
-const InvoiceSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  content: z.string(),
-  //   price: z.number(),
-});
+export async function createProduct(formData: FormData) {
+  const title = formData.get("title") as string;
+  const content = formData.get("content") as string;
+  const price = Number(formData.get("price"));
+  const image = formData.get("image") as string;
+  const featured = formData.get("isFeatured") === "Sim";
+  const categoryIds = formData.getAll("categories") as string[];
 
-const CreateProduct = InvoiceSchema.omit({ id: true });
+  await prisma.product.create({
+    data: {
+      title,
+      content,
+      price,
+      image,
+      featured,
+      categories: {
+        connect: categoryIds.map((id) => ({ id })),
+      },
+    },
+  });
 
-// export async function createProduct(formData: FormData) {
-//   const title = formData.get("title") as string;
-//   const content = formData.get("content") as string;
-//   const price = formData.get("price") as string;
+  revalidatePath("/admin/products");
+  redirect("/admin/products");
+}
 
-//   const product = await prisma.product.create({
-//     data: {
-//       title,
-//       content,
-//       price: 0, // Add a placeholder value for the price property
-//     },
-//   });
+export async function getCategories() {
+  const categories = await prisma.category.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
 
-//   revalidatePath("/admin/products");
-//   redirect("/admin/products");
-// }
+  return categories;
+}
 
 export async function updateProduct(id: string, formData: FormData) {
-  const { title, content } = CreateProduct.parse({
-    title: formData.get("title"),
-    content: formData.get("content"),
-    // price: formData.get("price"),
-  });
+  const title = formData.get("title") as string;
+  const content = formData.get("content") as string;
+  const price = Number(formData.get("price"));
+  const image = formData.get("image") as string;
+  const featured = formData.get("isFeatured") === "Sim";
+  const categoryIds = formData.getAll("categories") as string[];
 
   await prisma.product.update({
     where: { id },
     data: {
       title,
       content,
-      //   price
+      price,
+      image,
+      featured,
+      categories: {
+        set: categoryIds.map((id) => ({ id })),
+      },
     },
   });
 
-  revalidatePath("/");
-  redirect("/");
+  redirect("/admin/products");
 }
 
 export async function getProductById(id: string) {
   const product = await prisma.product.findUnique({
     where: { id },
+    include: {
+      categories: true,
+    }
   });
 
   return product;
@@ -66,23 +83,21 @@ export async function deleteProduct(id: string) {
   revalidatePath("/admin/products");
 }
 
-export async function GetProducts() {
+export async function GET() {
   const products = await prisma.product.findMany({
   });
 
   return products;
 }
 
-export async function GET() {
-  const product = await prisma.product.findMany({
-    include: {
-      author: {
-        select: { name: true },
-      },
+export async function getFeaturedProducts() {
+  const products = await prisma.product.findMany({
+    where: {
+      featured: true,
     },
   });
 
-  return product;
+  return products;
 }
 
 export async function filterProductQuery(query: string) {

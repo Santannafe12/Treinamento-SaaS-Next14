@@ -1,36 +1,56 @@
-"use server"
-
-import { getIndividualProduct } from "@/lib/product/actions"
 import Image from "next/image"
 
-type Params = {
+type ProductProps = {
     id: string;
+    title: string;
+    content: string;
+    image: string;
+    price: number;
+    featured: boolean;
+    createdAt: Date;
+    authorId: string | null;
+    categories: CategoriaProps[]
 }
 
-export default async function IndividualProduct({id}: Params) {
-    // const produto = await getIndividualProduct()
+type CategoriaProps = {
+    id: string;
+    name: string;
+}
+
+export default async function IndividualProduct({
+    product,
+    categories,
+}: {
+    product: ProductProps;
+    categories: CategoriaProps[];
+}) {
+
+    const calculateInstallment = (price: number, numberOfInstallments: number) => {
+        const installmentValue = price / numberOfInstallments;
+        return installmentValue.toFixed(2); // Arredondando para duas casas decimais
+    };
 
     return (
         <div className="w-full flex flex-col lg:flex-row gap-8 justify-center items-center">
             <div className="aspect-square relative h-full w-full sm:w-10/12 md:w-8/12 lg:w-5/12 sm:rounded-lg overflow-hidden">
                 <Image
-                    src={'/fleece.jpg'}
-                    alt=""
+                    src={product?.image}
+                    alt={product?.title}
                     width={1000}
                     height={1000}
                     quality={100}
                 />
             </div>
             <div className="w-11/12 lg:w-4/12 flex flex-col justify-center px-12">
-                {/* <h1 className="text-3xl font-extrabold mb-6">{produto?.title}</h1> */}
+                <h1 className="text-3xl font-extrabold mb-6">{product?.title}</h1>
                 <div className="space-y-6">
                     <section>
                         <h2 className="text-lg font-medium">Descrição</h2>
-                        {/* <p className="text-md text-black/60">{produto?.content}</p> */}
+                        <p className="text-md text-black/60">{product?.content}</p>
                     </section>
                     <section className="flex flex-col">
-                        {/* <span className="text-3xl font-extrabold">R$ {produto?.price}</span> */}
-                        <span className="text-black/50">ou 10x de R$ 100,00 sem juros</span>
+                        <span className="text-3xl font-extrabold">R$ {product?.price}</span>
+                        ou 10x de R$ {calculateInstallment(product?.price || 0, 10)} sem juros
                     </section>
                     <section>
                         <h3 className="text-md font-medium">Tamanho</h3>

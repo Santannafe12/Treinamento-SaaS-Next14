@@ -1,4 +1,4 @@
-export interface Product {
+export type Product = {
   id: string;
   title: string;
   content: string;
@@ -11,7 +11,7 @@ export interface Product {
   categories: Category[];
 }
 
-interface ProductArray {
+type ProductArray = {
   products: {
       id: string;
       title: string;
@@ -33,13 +33,18 @@ export type productsTest = {
   product: ProductArray
 }
 
-export interface Category {
+export type Category = {
   id: string;
   name: string;
   products: Product[];
 }
 
-export interface User {
+export type categoria = {
+  id: string;
+  name: string;
+}
+
+export type User = {
   id: string;
   name: string;
   email: string;
@@ -47,21 +52,6 @@ export interface User {
   updatedAt: Date;
   products: Product[];
 }
-
-// type product = {
-//   author: {
-//     name: string;
-//   } | null;
-// } & {
-//   id: string;
-//   title: string;
-//   content: string;
-//   image: string
-//   price: number
-//   featured: boolean;
-//   createdAt: Date;
-//   authorId: string | null;
-// } | null;
 
 export type produto = {
   id: string;

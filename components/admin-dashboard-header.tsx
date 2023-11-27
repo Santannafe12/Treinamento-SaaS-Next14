@@ -1,6 +1,6 @@
 type AdminProductsDashboardProps = {
-    title: string
-    description: string
+    title: string 
+    description: string | undefined
 }
 
 export const AdminDashboardHeader = ({ title, description }: AdminProductsDashboardProps) => {

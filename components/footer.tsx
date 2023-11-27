@@ -7,15 +7,7 @@ export const Footer = () => {
                 summitStore
             </Link>
 
-            <span className="block text-sm text-center text-gray-500 dark:text-gray-400">© 2024 - 2025 summitStore™. All Rights Reserved.
-                Built with
-                <Link href="https://flowbite.com"
-                    className="text-purple-600 hover:underline dark:text-purple-500"> Flowbite </Link> and
-                <Link
-                    href="https://tailwindcss.com" className="text-purple-600 hover:underline dark:text-purple-500"> Tailwind
-                    CSS
-                </Link>.
-            </span>
+            <span className="block text-sm text-center text-gray-500 dark:text-gray-400">© 2024 - 2025 summitStore™. All Rights Reserved.</span>
 
             <ul className="flex justify-center mt-5 space-x-5">
                 <li>
