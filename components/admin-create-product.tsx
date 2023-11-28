@@ -1,11 +1,7 @@
-import { createProduct } from "@/lib/product/actions"
-import { categoria } from "@/types/featured"
+import { createProduct } from "@/lib/products/actions"
+import { CategoriesProps } from "@/types/categories"
 
-type AdminManageProductProps = {
-    categories: categoria[]
-}
-
-export const AdminManageProduct = ({ categories }: AdminManageProductProps) => {
+export const AdminCreateProduct = ({ categories }: CategoriesProps) => {
 
     return (
         <div className="w-5/12 p-4 border-2 rounded-md flex flex-col gap-6">
@@ -23,7 +19,7 @@ export const AdminManageProduct = ({ categories }: AdminManageProductProps) => {
 
                 <div className="flex flex-col gap-1">
                     <label>Preço do produto</label>
-                    <input className="border-2 p-2 rounded-md" name="price" placeholder="Preço" type="number" required />
+                    <input className="border-2 p-2 rounded-md" name="price" placeholder="Preço" type="number" />
                 </div>
 
                 <div className="flex flex-col gap-1">
@@ -41,18 +37,18 @@ export const AdminManageProduct = ({ categories }: AdminManageProductProps) => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-4">
                     <label className="text-gray-500">Categorias do produto</label>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                         {categories.map((category) => (
-                            <div key={category.id} className="flex items-center">
+                            <div key={category?.id} className="flex gap-2 justify-start items-center">
                                 <input
                                     type="checkbox"
                                     name="categories"
-                                    value={category.id}
+                                    value={category?.id}
                                     className="form-checkbox h-5 w-5 text-blue-600"
                                 />
-                                <span className="ml-2">{category.name}</span>
+                                <span>{category?.name}</span>
                             </div>
                         ))}
                     </div>

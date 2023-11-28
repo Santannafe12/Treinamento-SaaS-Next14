@@ -10,13 +10,15 @@ export const Header = () => {
                         summitStore
                     </Link>
                 </div>
+
                 <div className="flex items-center gap-5">
-                    <div className="flex items-center gap-2">
-                        <ShoppingBag className="w-6 h-6" />
-                        <span>Carrinho (0)</span>
-                    </div>
+
+                    <Link href="/products" className="flex items-center gap-2 hover:underline">
+                        <span>Produtos</span>
+                    </Link>
 
                     <div className="w-px h-4 bg-zinc-700" />
+
 
                     <Link href="/login" className="flex items-center gap-2 hover:underline">
                         <span>Login</span>
@@ -27,6 +29,13 @@ export const Header = () => {
                     <Link href="/admin/user/felipe" className="flex items-center gap-2 hover:underline">
                         <span>Account</span>
                     </Link>
+
+                    <div className="w-px h-4 bg-zinc-700" />
+
+                    <div className="flex items-center gap-2">
+                        <ShoppingBag className="w-6 h-6" />
+                        <span>Carrinho (0)</span>
+                    </div>
                 </div>
             </nav >
         </div>

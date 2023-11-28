@@ -27,18 +27,35 @@ export async function createProduct(formData: FormData) {
     },
   });
 
-  revalidatePath("/admin/products");
-  redirect("/admin/products");
+  // revalidatePath("/admin/products/create");
+  redirect("/admin/products/create");
 }
 
-export async function getCategories() {
-  const categories = await prisma.category.findMany({
-    orderBy: {
-      name: "asc",
+export async function GET() {
+  const products = await prisma.product.findMany({});
+
+  return products;
+}
+
+export async function getFeaturedProducts() {
+  const products = await prisma.product.findMany({
+    where: {
+      featured: true,
     },
   });
 
-  return categories;
+  return products;
+}
+
+export async function getProductById(id: string) {
+  const product = await prisma.product.findUnique({
+    where: { id },
+    include: {
+      categories: true,
+    },
+  });
+
+  return product;
 }
 
 export async function updateProduct(id: string, formData: FormData) {
@@ -66,38 +83,10 @@ export async function updateProduct(id: string, formData: FormData) {
   redirect("/admin/products");
 }
 
-export async function getProductById(id: string) {
-  const product = await prisma.product.findUnique({
-    where: { id },
-    include: {
-      categories: true,
-    }
-  });
-
-  return product;
-}
-
 export async function deleteProduct(id: string) {
   await prisma.product.delete({ where: { id } });
 
   revalidatePath("/admin/products");
-}
-
-export async function GET() {
-  const products = await prisma.product.findMany({
-  });
-
-  return products;
-}
-
-export async function getFeaturedProducts() {
-  const products = await prisma.product.findMany({
-    where: {
-      featured: true,
-    },
-  });
-
-  return products;
 }
 
 export async function filterProductQuery(query: string) {
@@ -143,7 +132,17 @@ export async function fetchFilteredProducts(
       skip: offset,
     });
 
-    return products;
+    const count = await prisma.product.count({
+      where: {
+        OR: [
+          { title: { contains: query, mode: "insensitive" } },
+          { content: { contains: query, mode: "insensitive" } },
+          // Add other fields you want to search here
+        ],
+      },
+    });
+
+    return { products, count };
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch products.");

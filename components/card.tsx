@@ -1,19 +1,8 @@
+import { ProductProps } from "@/types/products";
 import Image from "next/image";
 import Link from "next/link";
-interface ProductArray {
-    product: {
-        id: string;
-        title: string;
-        content: string;
-        image: string;
-        price: number;
-        featured: boolean;
-        createdAt: Date;
-        authorId: string | null;
-    };
-}
 
-export const Card = ({ product }: ProductArray) => {
+export const Card = ({ product }: ProductProps) => {
     return (
         <div className="relative group">
             <Link href={`/product/${product.id}`}>

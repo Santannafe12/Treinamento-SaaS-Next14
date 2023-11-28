@@ -1,28 +1,13 @@
+import { CategoriesProps } from "@/types/categories";
+import { Product } from "@/types/products";
 import Image from "next/image"
-
-type ProductProps = {
-    id: string;
-    title: string;
-    content: string;
-    image: string;
-    price: number;
-    featured: boolean;
-    createdAt: Date;
-    authorId: string | null;
-    categories: CategoriaProps[]
-}
-
-type CategoriaProps = {
-    id: string;
-    name: string;
-}
 
 export default async function IndividualProduct({
     product,
     categories,
 }: {
-    product: ProductProps;
-    categories: CategoriaProps[];
+    product: Product;
+    categories: CategoriesProps;
 }) {
 
     const calculateInstallment = (price: number, numberOfInstallments: number) => {

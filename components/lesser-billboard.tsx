@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 type LesserBillboardProps = { imageUrl: string, annoucement: string, sale: string }
 
 export const LesserBillboard = ({ imageUrl, annoucement, sale }: LesserBillboardProps) => {
@@ -11,7 +13,7 @@ export const LesserBillboard = ({ imageUrl, annoucement, sale }: LesserBillboard
                         <span className="text-white">{annoucement}</span>
                     </div>
                     <div>
-                        <button className="py-4 px-8 bg-black/70 rounded-md text-white text-2xl font-extrabold duration-200 hover:bg-black">{sale}</button>
+                        <Link href={'/products'}><button className="py-4 px-8 bg-black/70 rounded-md text-white text-2xl font-extrabold duration-200 hover:bg-black">{sale}</button></Link>
                     </div>
                 </div>
             </div>

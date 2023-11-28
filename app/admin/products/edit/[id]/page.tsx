@@ -1,6 +1,7 @@
 import { AdminDashboardHeader } from "@/components/admin-dashboard-header";
 import EditProduct from "@/components/admin-edit-product";
-import { getCategories, getProductById } from "@/lib/product/actions";
+import { getCategories } from "@/lib/categories/action";
+import { getProductById } from "@/lib/products/actions";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id

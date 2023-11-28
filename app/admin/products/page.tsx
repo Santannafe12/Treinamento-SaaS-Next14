@@ -1,5 +1,6 @@
 import { AdminDashboardHeader } from "@/components/admin-dashboard-header";
-import AdminProductsDashboardTable from "@/components/admin-dashboard-table-products";
+import AdminDashboardTableCategories from "@/components/admin-dashboard-table-categories";
+import AdminDashboardTableProducts from "@/components/admin-dashboard-table-products";
 
 export default async function AdminProducts({
     searchParams,
@@ -14,8 +15,9 @@ export default async function AdminProducts({
 
     return (
         <div className="space-y-10">
-            <AdminDashboardHeader title="Painel de Produtos" description="Gerencie os produtos" />
-            <AdminProductsDashboardTable query={query} currentPage={currentPage} />
+            <AdminDashboardHeader title="Painel de Produtos" description="Gerencie os produtos e categorias" />
+            <AdminDashboardTableProducts query={query} currentPage={currentPage} />
+            <AdminDashboardTableCategories query={query} currentPage={currentPage} />
         </div>
     )
 }

@@ -1,32 +1,16 @@
-import { updateProduct } from "@/lib/product/actions";
-
-type ProductProps = {
-    id: string;
-    title: string;
-    content: string;
-    image: string;
-    price: number;
-    featured: boolean;
-    createdAt: Date;
-    authorId: string | null;
-    categories: CategoriaProps[]
-}
-
-type CategoriaProps = {
-    id: string;
-    name: string;
-}
+import { updateProduct } from "@/lib/products/actions";
+import { Categorie } from "@/types/categories";
+import { Product } from "@/types/products";
 
 export default async function EditProduct({
     product,
     categories,
 }: {
-    product: ProductProps;
-    categories: CategoriaProps[];
+    product: Product;
+    categories: Categorie[];
 }) {
 
     const updateProductWithId = updateProduct.bind(null, product.id);
-    console.log(product.categories)
 
     return (
         <div className="w-5/12 p-4 border-2 rounded-md flex flex-col gap-6">
@@ -63,19 +47,19 @@ export default async function EditProduct({
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-4">
                     <label className="text-gray-500">Categorias do produto</label>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                         {categories.map((category) => (
-                            <div key={category.id} className="flex items-center">
-                                <input
+                            <div key={category?.id} className="flex gap-2 justify-start items-center">
+                            <input
                                     type="checkbox"
                                     name="categories"
-                                    value={category.id}
-                                    defaultChecked={product.categories.some((categorie) => categorie.id === category.id)}
+                                    value={category?.id}
+                                    defaultChecked={product.categories.some((categorie) => categorie?.id === category?.id)}
                                     className="form-checkbox h-5 w-5 text-blue-600"
                                 />
-                                <span className="ml-2">{category.name}</span>
+                                <span className="ml-2">{category?.name}</span>
                             </div>
                         ))}
                     </div>

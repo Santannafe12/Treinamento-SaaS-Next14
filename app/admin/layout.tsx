@@ -1,4 +1,3 @@
-import { AdminDeleteModal } from "@/components/admin-delete-modal"
 import { AdminHeader } from "@/components/admin-header"
 import { Footer } from "@/components/footer"
 

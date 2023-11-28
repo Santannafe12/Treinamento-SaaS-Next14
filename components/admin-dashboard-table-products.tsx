@@ -1,15 +1,14 @@
-import { countAllProducts, fetchFilteredProducts, fetchProductPages, filterProductQuery } from "@/lib/product/actions"
-import { ProductsProps } from "@/types/featured"
+import { fetchFilteredProducts, fetchProductPages } from "@/lib/products/actions"
 import Link from "next/link"
 import AdminSearch from "./admin-search"
-import { AdminDeleteButton, AdminEditButton, AdminViewButton } from "./admin-buttons"
+import { AdminDeleteProductButton, AdminEditProductButton, AdminViewProductButton } from "./admin-buttons"
 import Pagination from "./pagination"
+import { QueryAndCurrentPage } from "@/types/utils"
 
-export default async function AdminProductsDashboardTable({ query, currentPage }: ProductsProps) {
+export default async function AdminDashboardTableProducts({ query, currentPage }: QueryAndCurrentPage) {
 
-    const products = await fetchFilteredProducts(query, currentPage)
+    const { products, count } = await fetchFilteredProducts(query, currentPage);
     const totalPages = await fetchProductPages(query)
-    const count = await countAllProducts()
 
     return (
         <div className="w-full p-4 border-2 rounded-md flex flex-col gap-6">
@@ -22,7 +21,7 @@ export default async function AdminProductsDashboardTable({ query, currentPage }
                 <AdminSearch placeholder="Pesquise por produtos" />
 
                 <Link href={'/admin/products/create'}>
-                    <button className="py-2 px-6 border-2 rounded-md text-white bg-sky-950 transition-all hover:bg-opacity-70">+ Criar Produto</button>
+                    <button className="py-2 w-52 px-6 border-2 rounded-md text-white bg-sky-800 transition-all hover:bg-opacity-70">+ Criar Produto</button>
                 </Link>
             </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -56,15 +55,15 @@ export default async function AdminProductsDashboardTable({ query, currentPage }
                                     {item.content}
                                 </td>
                                 <td className="px-6 py-4 flex items-center gap-4">
-                                    <AdminViewButton id={item.id} />
-                                    <AdminEditButton id={item.id} />
-                                    <AdminDeleteButton id={item.id} />
+                                    <AdminViewProductButton id={item.id} />
+                                    <AdminEditProductButton id={item.id} />
+                                    <AdminDeleteProductButton id={item.id} />
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                <Pagination totalPages={totalPages} count={count} item="produtos" />
+                <Pagination totalPages={totalPages} count={count} item={count === 1 ? "produto" : "produtos"} />
             </div>
         </div>
     )

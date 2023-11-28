@@ -1,5 +1,5 @@
 import IndividualProduct from "@/components/individual-product"
-import { getProductById } from "@/lib/product/actions"
+import { getProductById } from "@/lib/products/actions"
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id

@@ -6,10 +6,10 @@ import { A11y, Navigation } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css';
 import { useRef } from 'react';
-import { Card } from './card';
+import { CategoriesCard } from './categories-card';
 import { ProductsProps } from '@/types/products';
 
-export const Carousel = ({ products, title }: ProductsProps & { title: string }) => {
+export const CategoriesCarousel = ({ products, title }: ProductsProps & { title: string }) => {
 
     const swiperRef = useRef<SwiperType>();
 
@@ -49,8 +49,8 @@ export const Carousel = ({ products, title }: ProductsProps & { title: string })
                 >
 
                     {products.map((item, index) => (
-                        <SwiperSlide key={index} className=" mb-1 rounded-xl shadow-lg flex flex-col justify-between">
-                            <Card product={item} />
+                        <SwiperSlide key={index} className="mb-1 rounded-xl shadow-lg flex flex-col justify-between">
+                            <CategoriesCard/>
                         </SwiperSlide>
                     ))}
 
