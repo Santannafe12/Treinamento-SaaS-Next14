@@ -7,9 +7,9 @@ import 'swiper/css/navigation';
 import 'swiper/css';
 import { useRef } from 'react';
 import { CategoriesCard } from './categories-card';
-import { ProductsProps } from '@/types/products';
+import { CategoriesProps } from '@/types/categories';
 
-export const CategoriesCarousel = ({ products, title }: ProductsProps & { title: string }) => {
+export const CategoriesCarousel = ({ categories, title }: CategoriesProps & { title: string }) => {
 
     const swiperRef = useRef<SwiperType>();
 
@@ -34,23 +34,23 @@ export const CategoriesCarousel = ({ products, title }: ProductsProps & { title:
 
                     breakpoints={{
                         0: {
-                            slidesPerView: 1,
+                            slidesPerView: 3,
                             spaceBetween: 10,
                         },
                         1024: {
-                            slidesPerView: 2,
+                            slidesPerView: 4,
                             spaceBetween: 40,
                         },
                         1280: {
-                            slidesPerView: 4,
+                            slidesPerView: 5,
                             spaceBetween: 40,
                         }
                     }}
                 >
 
-                    {products.map((item, index) => (
+                    {categories?.map((categorie, index) => (
                         <SwiperSlide key={index} className="mb-1 rounded-xl shadow-lg flex flex-col justify-between">
-                            <CategoriesCard/>
+                            <CategoriesCard categorie={categorie} />
                         </SwiperSlide>
                     ))}
 

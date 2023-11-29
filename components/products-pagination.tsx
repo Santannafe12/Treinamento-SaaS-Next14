@@ -1,12 +1,11 @@
 'use client'
 
-import { ITEMS_PER_PAGE } from "@/lib/utils";
 import clsx from "clsx";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-export default function Pagination({ totalPages, count, item }: { totalPages: number, count: number, item: string }) {
+export default function ProductsPagination({ totalPages }: { totalPages: number }) {
     const pathname = usePathname()
     const searchParams = useSearchParams()
     const currentPage = Number(searchParams.get("page")) || 1
@@ -21,10 +20,7 @@ export default function Pagination({ totalPages, count, item }: { totalPages: nu
     const allPages = generatePagination(currentPage, totalPages);
 
     return (
-        <div className="w-full flex items-center px-4 py-2 justify-between">
-            <div>
-                <span>Mostrando <span className="font-bold">1-{ITEMS_PER_PAGE}</span> de <span className="font-bold">{count}</span> {item}</span>
-            </div>
+        <div className="w-full flex items-center px-4 py-2 justify-center gap-6">
             <div className="flex">
                 <PaginationArrow
                     direction="left"

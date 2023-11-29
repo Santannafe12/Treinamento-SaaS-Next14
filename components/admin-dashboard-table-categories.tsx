@@ -3,7 +3,7 @@ import { AdminCategorieCard } from "./admin-categorie-card"
 import { QueryAndCurrentPage } from "@/types/utils"
 import { countAllCategories, getCategories } from "@/lib/categories/action"
 
-export default async function AdminDashboardTableCategories({ query, currentPage }: QueryAndCurrentPage) {
+export default async function AdminDashboardTableCategories() {
 
     const categories = await getCategories()
     const count = await countAllCategories()

@@ -17,7 +17,7 @@ export default async function AdminProducts({
         <div className="space-y-10">
             <AdminDashboardHeader title="Painel de Produtos" description="Gerencie os produtos e categorias" />
             <AdminDashboardTableProducts query={query} currentPage={currentPage} />
-            <AdminDashboardTableCategories query={query} currentPage={currentPage} />
+            <AdminDashboardTableCategories/>
         </div>
     )
 }

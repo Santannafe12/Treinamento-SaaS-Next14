@@ -4,7 +4,6 @@ import { z } from "zod";
 import prisma from "../db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { ITEMS_PER_PAGE } from "../utils";
 
 export async function createProduct(formData: FormData) {
   const title = formData.get("title") as string;
@@ -31,7 +30,7 @@ export async function createProduct(formData: FormData) {
   redirect("/admin/products/create");
 }
 
-export async function GET() {
+export async function getProducts() {
   const products = await prisma.product.findMany({});
 
   return products;
@@ -114,9 +113,10 @@ export async function filterProductQuery(query: string) {
 
 export async function fetchFilteredProducts(
   query: string,
-  currentPage: number
+  currentPage: number,
+  itensPerPage: number
 ) {
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  const offset = (currentPage - 1) * itensPerPage;
 
   try {
     const products = await prisma.product.findMany({
@@ -128,7 +128,7 @@ export async function fetchFilteredProducts(
         ],
       },
       orderBy: { createdAt: "desc" }, // Adjust the ordering based on your needs
-      take: ITEMS_PER_PAGE,
+      take: itensPerPage,
       skip: offset,
     });
 
@@ -149,7 +149,47 @@ export async function fetchFilteredProducts(
   }
 }
 
-export async function fetchProductPages(query: string) {
+export async function fetchFilteredProductsSort(
+  query: string,
+  currentPage: number,
+  itemsPerPage: number,
+  sortType: string,
+) {
+  const offset = (currentPage - 1) * itemsPerPage;
+
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        OR: [
+          { title: { contains: query, mode: 'insensitive' } },
+          { content: { contains: query, mode: 'insensitive' } },
+        ],
+      },
+      orderBy: { createdAt: sortType },
+      take: itemsPerPage,
+      skip: offset,
+    });
+
+    const count = await prisma.product.count({
+      where: {
+        OR: [
+          { title: { contains: query, mode: 'insensitive' } },
+          { content: { contains: query, mode: 'insensitive' } },
+          // Adicione outros campos que deseja pesquisar aqui
+        ],
+      },
+    });
+    
+    console.log(sortType)
+
+    return { products, count };
+  } catch (error) {
+    console.error('Erro no banco de dados:', error);
+    throw new Error('Falha ao buscar os produtos.');
+  }
+}
+
+export async function fetchProductPages(query: string, itensPerPage: number) {
   try {
     const count = await prisma.product.count({
       where: {
@@ -161,7 +201,7 @@ export async function fetchProductPages(query: string) {
       },
     });
 
-    const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(count / itensPerPage);
     return totalPages;
   } catch (error) {
     console.error("Database Error:", error);

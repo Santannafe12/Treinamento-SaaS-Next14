@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ShoppingBag } from "lucide-react"
+import ProductsSearch from "./products-search"
 
 export const Header = () => {
     return (
@@ -10,6 +11,8 @@ export const Header = () => {
                         summitStore
                     </Link>
                 </div>
+                
+                <ProductsSearch placeholder="Pesquise por produtos" />
 
                 <div className="flex items-center gap-5">
 

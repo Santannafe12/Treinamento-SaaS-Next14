@@ -2,13 +2,14 @@ import { fetchFilteredProducts, fetchProductPages } from "@/lib/products/actions
 import Link from "next/link"
 import AdminSearch from "./admin-search"
 import { AdminDeleteProductButton, AdminEditProductButton, AdminViewProductButton } from "./admin-buttons"
-import Pagination from "./pagination"
 import { QueryAndCurrentPage } from "@/types/utils"
+import AdminPagination from "./admin-pagination"
 
 export default async function AdminDashboardTableProducts({ query, currentPage }: QueryAndCurrentPage) {
+    const itensPerPage = 10
 
-    const { products, count } = await fetchFilteredProducts(query, currentPage);
-    const totalPages = await fetchProductPages(query)
+    const { products, count } = await fetchFilteredProducts(query, currentPage, itensPerPage);
+    const totalPages = await fetchProductPages(query, itensPerPage)
 
     return (
         <div className="w-full p-4 border-2 rounded-md flex flex-col gap-6">
@@ -63,7 +64,7 @@ export default async function AdminDashboardTableProducts({ query, currentPage }
                         ))}
                     </tbody>
                 </table>
-                <Pagination totalPages={totalPages} count={count} item={count === 1 ? "produto" : "produtos"} />
+                <AdminPagination totalPages={totalPages} count={count} item={count === 1 ? "produto" : "produtos"} itensPerPage={itensPerPage} />
             </div>
         </div>
     )
